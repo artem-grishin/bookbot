@@ -7,9 +7,11 @@ def main():
 
     count_characters_dict = get_chars_dict(file_contents)
 
-    sorted_dict = get_sorted_dict(count_characters_dict)
+    char_count_sorted_list = get_sorted_list(count_characters_dict)
 
-    print_report(word_count, sorted_dict)
+    keys, values = get_keys_values(count_characters_dict)
+
+    print_report(word_count, char_count_sorted_list, keys, values)
 
 def get_word_count(text):
     return len(text.split())
@@ -22,16 +24,21 @@ def get_chars_dict(text):
             chars_dict[lowered_ch] = 1 + chars_dict.get(lowered_ch, 0)
     return chars_dict
 
-def get_sorted_dict(char_dict):
-    pass
+def get_sorted_list(char_dict):
+    sorted_list = sorted(list(char_dict.values()), reverse=True)
+    return sorted_list
 
+def get_keys_values(char_dict):
+    key_list = list(char_dict.keys())
+    value_list = list(char_dict.values())
+    return (key_list, value_list)
 
-def print_report(count, sorted_dict):
+def print_report(count, sorted_list, keys, values):
     print(f"--- Begin report of books/frankenstein.txt ---")
     print(f"{count} words found in the document\n\n")
 
-    for ch in sorted_dict:
-        print(f"The '{ch}' character was found {sorted_dict[ch]} times")
+    for ch in sorted_list:
+        print(f"The '{keys[values.index(ch)]}' character was found {ch} times")
     print(f"--- End report ---")
 
 main()  
